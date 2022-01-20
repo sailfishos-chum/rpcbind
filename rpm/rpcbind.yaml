@@ -1,0 +1,34 @@
+Name: rpcbind
+Summary: portmap replacement which supports RPC over various protocols
+Version: 1.2.6
+Group: System
+License: BSD
+Sources:
+    - '%{name}-%{version}.tar.bz2'
+URL: https://sourceforge.net/project/rpcbind/
+Description: |
+    %{summary}.
+
+    %if "%{?vendor}" == "chum"
+    PackagerName: nephros
+    Categories:
+     - Network
+     - System
+    %endif
+
+PkgBR:
+  - systemd
+PkgConfigBR:
+  - libtirpc
+  - libsystemd
+Files:
+  - '%{_bindir}/*'
+  - '%{_sbindir}/*'
+  - '%{_mandir}/*/*'
+  - '%{_unitdir}/*'
+SubPackages:
+    - Name:  doc
+      Summary: Documentation files for %{name}
+      Group: Documentation
+      Files:
+        - '%{_mandir}/*/*'
