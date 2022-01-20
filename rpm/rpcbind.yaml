@@ -6,17 +6,21 @@ License: BSD
 Sources:
     - '%{name}-%{version}.tar.bz2'
 URL: https://sourceforge.net/project/rpcbind/
+SCM: git://git.linux-nfs.org/projects/steved/rpcbind.git
 Description: |
     %{summary}.
 
     %if "%{?vendor}" == "chum"
-    PackagerName: nephros
     Categories:
      - Network
      - System
+    Custom:
+      PackagingRepo: https://github.com/sailfishos-chum/rpcbind
     %endif
-
+SetupOptions: -q -n  %{name}-%{version}/upstream
 PkgBR:
+  - autoconf
+  - automake
   - systemd
 PkgConfigBR:
   - libtirpc
@@ -24,7 +28,6 @@ PkgConfigBR:
 Files:
   - '%{_bindir}/*'
   - '%{_sbindir}/*'
-  - '%{_mandir}/*/*'
   - '%{_unitdir}/*'
 SubPackages:
     - Name:  doc

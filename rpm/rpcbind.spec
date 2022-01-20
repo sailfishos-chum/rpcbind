@@ -18,16 +18,19 @@ Source0:    %{name}-%{version}.tar.bz2
 Source100:  rpcbind.yaml
 BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  systemd
 
 %description
 %{summary}.
 
 %if "%{?vendor}" == "chum"
-PackagerName: nephros
 Categories:
  - Network
  - System
+Custom:
+  PackagingRepo: https://github.com/sailfishos-chum/rpcbind
 %endif
 
 
@@ -40,13 +43,14 @@ Requires:   %{name} = %{version}-%{release}
 %{summary}.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n  %{name}-%{version}/upstream
 
 # >> setup
 # << setup
 
 %build
 # >> build pre
+./autogen.sh
 # << build pre
 
 %configure --disable-static
@@ -68,7 +72,6 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %{_bindir}/*
 %{_sbindir}/*
-%{_mandir}/*/*
 %{_unitdir}/*
 # >> files
 # << files
